@@ -1,0 +1,46 @@
+.price__block {
+  position: absolute;
+  right: 170px;
+  bottom: 654px;
+  width: 235px;
+  height: 235px;
+  border-radius: 50%;
+  background: #49101a;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.price__block_wrap {
+  display: flex;
+}
+
+.price__currency {
+  font-family: Inter;
+  font-size: 36.85px;
+  font-weight: 600;
+
+  text-align: center;
+  color: #ffffff;
+}
+
+.price__amount {
+  font-family: Inter;
+  font-size: 105.28px;
+  font-weight: 600;
+  line-height: 105.28px;
+  letter-spacing: -0.1em;
+  text-align: center;
+  color: #ffffff;
+  margin: 0;
+}
+
+.price__cents {
+  font-family: Inter;
+  font-size: 36.85px;
+  font-weight: 600;
+
+  text-align: center;
+  color: #ffffff;
+}
