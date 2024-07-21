@@ -1,0 +1,7 @@
+{
+  "titleText": "Top wine",
+  "subTitleText": "Bestsellers",
+  "imageNames": ["wine-3-p.png", "wine-1-p.png", "wine-2-p.png"],
+  "backgroundColor": "linear-gradient(180deg, #4A0E18 -6.72%, #A72038 50%)",
+  "prices": [12, 25, 15]
+}
