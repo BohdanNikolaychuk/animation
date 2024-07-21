@@ -19,7 +19,7 @@ export const WineCarousel: React.FC<z.infer<typeof WineCarouselSchema>> = ({
 
   const progress = (frame % cycleFrames) / cycleFrames;
 
-  const easeInOut = (t: number) => {
+  const easeInOut = (t: number): number => {
     return t < 0.5 ? 4 * Math.pow(t, 3) : 1 - Math.pow(-2 * t + 2, 3) / 2;
   };
 

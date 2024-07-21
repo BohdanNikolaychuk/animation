@@ -1,4 +1,4 @@
-import { useCurrentFrame, useVideoConfig } from 'remotion';
+import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import s from './PriceBlock.module.css';
 
 export const PriceBlock: React.FC<{ index: number; prices: Array<number> }> = ({
@@ -8,18 +8,22 @@ export const PriceBlock: React.FC<{ index: number; prices: Array<number> }> = ({
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
-  const cycleFrames = durationInFrames / 3;
+  const animationDuration = durationInFrames / 3;
+  const startFrame = frame - (frame % animationDuration);
 
-  const cycleFrame = frame % cycleFrames;
-  const opacity = Math.min(1, cycleFrame / (cycleFrames / 2));
-  const scale = 1 + 0.1 * Math.sin((frame / cycleFrames) * Math.PI * 2);
+  const opacity = interpolate(
+    frame - startFrame,
+    [0, animationDuration / 2, animationDuration],
+    [0, 1, 0],
+    { extrapolateRight: 'clamp' }
+  );
 
   return (
     <div className={s.price__block}>
       <div
         style={{
           opacity,
-          //transform: `scale(${scale})`,
+          transition: `opacity ${animationDuration / 2}ms ease`,
         }}
         className={s.price__block_wrap}
       >
