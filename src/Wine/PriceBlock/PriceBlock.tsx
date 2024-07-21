@@ -1,7 +1,10 @@
 import { useCurrentFrame, useVideoConfig } from 'remotion';
 import s from './PriceBlock.module.css';
 
-export const PriceBlock: React.FC<{ index: number }> = ({ index }) => {
+export const PriceBlock: React.FC<{ index: number; prices: Array<number> }> = ({
+  index,
+  prices,
+}) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
@@ -16,12 +19,12 @@ export const PriceBlock: React.FC<{ index: number }> = ({ index }) => {
       <div
         style={{
           opacity,
-          transform: `scale(${scale})`,
+          //transform: `scale(${scale})`,
         }}
         className={s.price__block_wrap}
       >
         <span className={s.price__currency}>$</span>
-        <h2 className={s.price__amount}>{index + 1}.</h2>
+        <h2 className={s.price__amount}>{prices[index]}.</h2>
         <span className={s.price__cents}>99</span>
       </div>
     </div>

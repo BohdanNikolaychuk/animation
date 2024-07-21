@@ -9,8 +9,23 @@ import s from './Wine.module.css';
 import { WineCarousel } from './Wine/WineCarousel';
 import { PriceBlock } from './Wine/PriceBlock/PriceBlock';
 import { WineNum } from './Wine/WineNum/WineNum';
+import { z } from 'zod';
 
-export const Wine: React.FC = () => {
+export const WineSchema = z.object({
+  titleText: z.string(),
+  subTitleText: z.string(),
+  imageNames: z.array(z.string()),
+  backgroundColor: z.string(),
+  prices: z.array(z.number()),
+});
+
+export const Wine: React.FC<z.infer<typeof WineSchema>> = ({
+  titleText,
+  subTitleText,
+  imageNames,
+  backgroundColor,
+  prices,
+}) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
@@ -21,18 +36,18 @@ export const Wine: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(180deg, #4A0E18 -6.72%, #A72038 50%)',
+        background: backgroundColor,
         overflow: 'hidden',
       }}
     >
       <div>
-        <h2 className={s.title}>Top wine</h2>
-        <p className={s.sub__title}>Bestsellers</p>
+        <h2 className={s.title}>{titleText}</h2>
+        <p className={s.sub__title}>{subTitleText}</p>
         <WineNum index={index} />
-        <PriceBlock index={index} />
+        <PriceBlock index={index} prices={prices} />
       </div>
       <Sequence from={0} durationInFrames={durationInFrames}>
-        <WineCarousel />
+        <WineCarousel imageNames={imageNames} />
       </Sequence>
     </AbsoluteFill>
   );

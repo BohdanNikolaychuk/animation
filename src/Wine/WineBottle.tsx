@@ -17,7 +17,6 @@ export const WineBottle: React.FC<{
         zIndex: zIndex,
       }}
     >
-      <h2>{index}</h2>
       <Img src={staticFile(img)} />
     </div>
   );

@@ -1,19 +1,26 @@
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { WineBottle } from './WineBottle';
 
-export const WineCarousel: React.FC = () => {
+import { z } from 'zod';
+
+export const WineCarouselSchema = z.object({
+  imageNames: z.array(z.string()),
+});
+
+export const WineCarousel: React.FC<z.infer<typeof WineCarouselSchema>> = ({
+  imageNames,
+}) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const cycleFrames = durationInFrames / 3;
 
   const offsets = [-540, 70, 520];
   const scales = [1, 1.4, 1];
-  const images = ['wine-3-p.png', 'wine-1-p.png', 'wine-2-p.png'];
 
   const progress = (frame % cycleFrames) / cycleFrames;
 
   const easeInOut = (t: number) => {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    return t < 0.5 ? 4 * Math.pow(t, 3) : 1 - Math.pow(-2 * t + 2, 3) / 2;
   };
 
   const interpolateValue = (start: number, end: number) => {
@@ -48,7 +55,7 @@ export const WineCarousel: React.FC = () => {
           key={i}
           offset={interpolateValue(offsetsArray[i], offsetsArray[(i + 1) % 3])}
           scale={interpolateValue(scalesArray[i], scalesArray[(i + 1) % 3])}
-          img={images[i]}
+          img={imageNames[i]}
           index={(prevIndex + i) % 3}
           zIndex={getZIndex((prevIndex + i) % 3)}
         />
